@@ -2,8 +2,12 @@
 
 class moduleRole extends spController {
 
+    
+    /***
+     * 更新权限
+     */
     function update() {
-         $moduleModel = json_decode($this->spArgs('moduleRole'));
+        $moduleModel = json_decode($this->spArgs('moduleRole'));
         $newrow = array(// PHP的数组
             'moduleid' => $moduleModel->{'moduleid'},
             'rolecode' => $moduleModel->{'rolecode'},
@@ -12,7 +16,7 @@ class moduleRole extends spController {
         );
         $module = spClass('cms_module_role');
         $conditions = array('id' => $moduleModel->{'id'});
-      
+
         $result = $module->update($conditions, $newrow);  // 进行操作
         if ($result) {
             $this->createLog('模块权限管理', '更新', '更新');
@@ -27,7 +31,6 @@ class moduleRole extends spController {
         )));
     }
 
-  
     /* 创建* */
 
     function create() {
@@ -47,7 +50,7 @@ class moduleRole extends spController {
                 'resultMessage' => '成功'
             )));
         } else {
-             exit(json_encode(array(
+            exit(json_encode(array(
                 'resultCode' => 0,
                 'resultMessage' => '失败'
             )));
@@ -71,8 +74,6 @@ class moduleRole extends spController {
             )));
         }
     }
-
-   
 
     /*
      * 列表 

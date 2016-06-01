@@ -1,15 +1,13 @@
 <?php
 
 class user extends spController {
-   
-   
     /*
      * 检测用户token，判断是否超时
      * 
      */
 
     function checkUserToken() {
-        $userToken = $this->spArgs('userToken','');
+        $userToken = $this->spArgs('userToken', '');
         // 0:token正常使用 1：token超时 2：token不存在
         $status = 0;
         if (isset($userToken)) {
@@ -156,6 +154,7 @@ class user extends spController {
             'loginip' => $this->spArgs('loginIp'),
             'userpassword' => md5($this->spArgs('userPassword')),
             'rolecode' => $this->spArgs('roleCode'),
+            'modulerolecode' => $this->spArgs('moduleRoleCode'),
             'lastlogintime' => date('Y-m-d H:i:s'),
             'realname' => $this->spArgs('userRealName')
         );
@@ -192,6 +191,7 @@ class user extends spController {
 
             'username' => $this->spArgs('userName'),
             'rolecode' => $this->spArgs('roleCode'),
+            'modulerolecode' => $this->spArgs('moduleRoleCode'),
             'realname' => $this->spArgs('userRealName')
         );
 
@@ -264,7 +264,7 @@ class user extends spController {
 
     function userListNoPage() {
         $user = spClass('cms_user');
-        $results = $user->findAll(null,' createdate desc');
+        $results = $user->findAll(null, ' createdate desc');
         $arr = array(
             'resultCode' => 1,
             'resultMessage' => '成功',

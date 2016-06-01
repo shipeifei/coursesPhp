@@ -74,22 +74,20 @@ class moduleRole extends spController {
             )));
         }
     }
-
-    /*
+  /*
      * 列表 
      * * */
 
     function moduleList() {
         $module = spClass('cms_module');
-        $conditions = array('moduleparentid' => $this->spArgs('parentId'));
-        $count = $module->findCount($conditions);
-        $this->results = $module->spLinker()->spPager($this->spArgs('currentPage', 1), $this->spArgs('pageSize', 20))->findAll($conditions, ' moduleorder asc');
+        $conditions = array('moduleparentid' => 0);
+        $this->results = $module->spLinker()->findAll($conditions, ' moduleorder asc');
         if (count($this->results) > 0) {
             $arr = array(
                 'resultCode' => 1,
                 'resultMessage' => '成功',
                 'responseObject' => array(
-                    'totalSize' => $count,
+                  
                     'module' => $this->results
                 )
             );
@@ -98,7 +96,7 @@ class moduleRole extends spController {
                 'resultCode' => 1,
                 'resultMessage' => '成功',
                 'responseObject' => array(
-                    'totalSize' => $count,
+                  
                     'module' => null
                 )
             );
@@ -106,37 +104,9 @@ class moduleRole extends spController {
         exit(json_encode($arr));
     }
 
-    /*
-     * 列表 
-     * * */
-
-    function getModuleByParentId() {
-        $module = spClass('cms_module');
-        $conditions = array('moduleparentid' => $this->spArgs('parentId'));
-
-        $this->results = $module->findAll($conditions, ' moduleorder asc');
-        if (count($this->results) > 0) {
-            $arr = array(
-                'resultCode' => 1,
-                'resultMessage' => '成功',
-                'responseObject' => array(
-                    'module' => $this->results
-                )
-            );
-        } else {
-            $arr = array(
-                'resultCode' => 1,
-                'resultMessage' => '成功',
-                'responseObject' => array(
-                    'module' => null
-                )
-            );
-        }
-        exit(json_encode($arr));
-    }
-
+ 
     function getSingleModuleById() {
-        $module = spClass('cms_module');
+        $module = spClass('cms_module_role');
         $conditions = array('id' => $this->spArgs('id'));
         $this->results = $module->find($conditions);
         $arr = array(
